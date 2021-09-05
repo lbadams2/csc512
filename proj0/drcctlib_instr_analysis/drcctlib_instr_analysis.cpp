@@ -29,15 +29,15 @@ using namespace std;
 
 // Execution
 void
-InsCount(instr_t *instr)
+InsCount(int32_t instr_type)
 {
-    if(instr_is_ubr(instr))
+    if(instr_type == 0)
         uncond_branch++;
-    else if(instr_is_ubr(instr))
+    else if(instr_type == 1)
         cond_branch++;
-    else if(instr_writes_memory(instr))
+    else if(instr_type == 2)
         mem_store++;
-    else if(instr_reads_memory(instr))
+    else if(instr_type == 3)
         mem_load++;
 }
 
@@ -50,7 +50,17 @@ InsTransEventCallback(void *drcontext, instr_instrument_msg_t *instrument_msg)
     instr_t *instr = instrument_msg->instr;
     int32_t slot = instrument_msg->slot;
 
-    dr_insert_clean_call(drcontext, bb, instr, (void *)InsCount, false, 1, OPND_CREATE_MEMPTR(instr));
+    int32_t instr_type = 0;
+    if(instr_is_ubr(instr))
+        instr_type = 0;
+    else if(instr_is_ubr(instr))
+        instr_type = 1;
+    else if(instr_writes_memory(instr))
+        instr_type = 2;
+    else if(instr_reads_memory(instr))
+        instr_type = 3;;
+
+    dr_insert_clean_call(drcontext, bb, instr, (void *)InsCount, false, 1, OPND_CREATE_INT32(instr_type));
 }
 
 static void
@@ -70,10 +80,10 @@ ClientInit(int argc, const char *argv[])
 static void
 ClientExit(void)
 {
-    dr_fprintf(gTraceFile, "MEMORY LOAD : %d", mem_load);
-    dr_fprintf(gTraceFile, "MEMORY STORE : %d", mem_store);
-    dr_fprintf(gTraceFile, "CONDITIONAL BRANCHES : %d", cond_branch);
-    dr_fprintf(gTraceFile, "UNCONDITIONAL BRANCHES : %d", uncond_branch);
+    dr_fprintf(gTraceFile, "MEMORY LOAD : %d\n", mem_load);
+    dr_fprintf(gTraceFile, "MEMORY STORE : %d\n", mem_store);
+    dr_fprintf(gTraceFile, "CONDITIONAL BRANCHES : %d\n", cond_branch);
+    dr_fprintf(gTraceFile, "UNCONDITIONAL BRANCHES : %d\n", uncond_branch);
 
     drcctlib_exit();
 
