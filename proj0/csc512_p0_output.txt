@@ -1,0 +1,428 @@
+MEMORY LOAD : 9174267
+[No. 1]Ins call times 2000000
+================================================================================
+sub_fun(5):"(0x00007f203e048607)mov    eax, <rel> dword ptr [0x00007f203e249014]"[/path/to/project0/input/app/src/app.c]
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 2]Ins call times 2000000
+================================================================================
+sub_fun(4):"(0x00007f203e048616)add    dword ptr [rbp-0x04], 0x01"[/path/to/project0/input/app/src/app.c]
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 3]Ins call times 2000000
+================================================================================
+sub_fun(4):"(0x00007f203e04861a)cmp    dword ptr [rbp-0x04], 0x63"[/path/to/project0/input/app/src/app.c]
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 4]Ins call times 1000000
+================================================================================
+sub_fun(4):"(0x00007f203e048616)add    dword ptr [rbp-0x04], 0x01"[/path/to/project0/input/app/src/app.c]
+fun(11):"(0x00007f203e048639)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+main(15):"(0x00007f203e04865b)call   0x00007f203e048623"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 5]Ins call times 1000000
+================================================================================
+sub_fun(4):"(0x00007f203e04861a)cmp    dword ptr [rbp-0x04], 0x63"[/path/to/project0/input/app/src/app.c]
+fun(11):"(0x00007f203e048639)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+main(15):"(0x00007f203e04865b)call   0x00007f203e048623"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 6]Ins call times 1000000
+================================================================================
+sub_fun(5):"(0x00007f203e048607)mov    eax, <rel> dword ptr [0x00007f203e249014]"[/path/to/project0/input/app/src/app.c]
+fun(11):"(0x00007f203e048639)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+main(15):"(0x00007f203e04865b)call   0x00007f203e048623"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 7]Ins call times 20000
+================================================================================
+sub_fun(4):"(0x00007f203e04861a)cmp    dword ptr [rbp-0x04], 0x63"[/path/to/project0/input/app/src/app.c]
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 8]Ins call times 20000
+================================================================================
+sub_fun(8):"(0x00007f203e048621)pop    rbp"[/path/to/project0/input/app/src/app.c]
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 9]Ins call times 20000
+================================================================================
+sub_fun(8):"(0x00007f203e048622)ret"[/path/to/project0/input/app/src/app.c]
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 10]Ins call times 20000
+================================================================================
+main(16):"(0x00007f203e048673)add    dword ptr [rbp-0x04], 0x01"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+MEMORY STORE : 6129048
+[No. 1]Ins call times 2000000
+================================================================================
+sub_fun(5):"(0x00007f203e048610)mov    <rel> dword ptr [0x00007f203e249014], eax"[/path/to/project0/input/app/src/app.c]
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 2]Ins call times 2000000
+================================================================================
+sub_fun(4):"(0x00007f203e048616)add    dword ptr [rbp-0x04], 0x01"[/path/to/project0/input/app/src/app.c]
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 3]Ins call times 1000000
+================================================================================
+sub_fun(4):"(0x00007f203e048616)add    dword ptr [rbp-0x04], 0x01"[/path/to/project0/input/app/src/app.c]
+fun(11):"(0x00007f203e048639)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+main(15):"(0x00007f203e04865b)call   0x00007f203e048623"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 4]Ins call times 1000000
+================================================================================
+sub_fun(5):"(0x00007f203e048610)mov    <rel> dword ptr [0x00007f203e249014], eax"[/path/to/project0/input/app/src/app.c]
+fun(11):"(0x00007f203e048639)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+main(15):"(0x00007f203e04865b)call   0x00007f203e048623"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 5]Ins call times 20000
+================================================================================
+sub_fun(3):"(0x00007f203e0485fa)push   rbp"[/path/to/project0/input/app/src/app.c]
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 6]Ins call times 20000
+================================================================================
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 7]Ins call times 20000
+================================================================================
+main(16):"(0x00007f203e048673)add    dword ptr [rbp-0x04], 0x01"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 8]Ins call times 20000
+================================================================================
+sub_fun(4):"(0x00007f203e0485fe)mov    dword ptr [rbp-0x04], 0x00000000"[/path/to/project0/input/app/src/app.c]
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 9]Ins call times 10000
+================================================================================
+sub_fun(4):"(0x00007f203e0485fe)mov    dword ptr [rbp-0x04], 0x00000000"[/path/to/project0/input/app/src/app.c]
+fun(11):"(0x00007f203e048639)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+main(15):"(0x00007f203e04865b)call   0x00007f203e048623"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 10]Ins call times 10000
+================================================================================
+sub_fun(3):"(0x00007f203e0485fa)push   rbp"[/path/to/project0/input/app/src/app.c]
+fun(11):"(0x00007f203e048639)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+main(15):"(0x00007f203e04865b)call   0x00007f203e048623"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+CONDITIONAL BRANCHES : 3078101
+[No. 1]Ins call times 2000000
+================================================================================
+sub_fun(4):"(0x00007f203e04861e)jle    0x00007f203e048607"[/path/to/project0/input/app/src/app.c]
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 2]Ins call times 1000000
+================================================================================
+sub_fun(4):"(0x00007f203e04861e)jle    0x00007f203e048607"[/path/to/project0/input/app/src/app.c]
+fun(11):"(0x00007f203e048639)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+main(15):"(0x00007f203e04865b)call   0x00007f203e048623"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 3]Ins call times 20000
+================================================================================
+sub_fun(4):"(0x00007f203e04861e)jle    0x00007f203e048607"[/path/to/project0/input/app/src/app.c]
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 4]Ins call times 20000
+================================================================================
+main(16):"(0x00007f203e04867e)jle    0x00007f203e048669"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 5]Ins call times 10000
+================================================================================
+fun(10):"(0x00007f203e048649)jle    0x00007f203e048634"[/path/to/project0/input/app/src/app.c]
+main(15):"(0x00007f203e04865b)call   0x00007f203e048623"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 6]Ins call times 10000
+================================================================================
+sub_fun(4):"(0x00007f203e04861e)jle    0x00007f203e048607"[/path/to/project0/input/app/src/app.c]
+fun(11):"(0x00007f203e048639)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+main(15):"(0x00007f203e04865b)call   0x00007f203e048623"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 7]Ins call times 1241
+================================================================================
+_dl_relocate_object(111):"(0x00007f204202b4a9)jbe    0x00007f204202ab1f"[/build/glibc-S9d2JN/glibc-2.27/elf/do-rel.h]
+dl_main(2190):"(0x00007f2042022322)call   0x00007f204202a900"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_dl_sysdep_start(253):"(0x00007f2042038f4d)call   r13"[../elf/dl-sysdep.c]
+_dl_start(414):"(0x00007f2042020123)call   0x00007f2042038a60"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_start(746):"(0x00007f204201f093)call   0x00007f204201fea0"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 8]Ins call times 1241
+================================================================================
+_dl_relocate_object(540):"(0x00007f204202b4c2)jz     0x00007f204202b498"[../sysdeps/x86_64/dl-machine.h]
+dl_main(2190):"(0x00007f2042022322)call   0x00007f204202a900"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_dl_sysdep_start(253):"(0x00007f2042038f4d)call   r13"[../elf/dl-sysdep.c]
+_dl_start(414):"(0x00007f2042020123)call   0x00007f2042038a60"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_start(746):"(0x00007f204201f093)call   0x00007f204201fea0"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 9]Ins call times 1241
+================================================================================
+_dl_relocate_object(535):"(0x00007f204202b4bc)jz     0x00007f204202b498"[../sysdeps/x86_64/dl-machine.h]
+dl_main(2190):"(0x00007f2042022322)call   0x00007f204202a900"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_dl_sysdep_start(253):"(0x00007f2042038f4d)call   r13"[../elf/dl-sysdep.c]
+_dl_start(414):"(0x00007f2042020123)call   0x00007f2042038a60"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_start(746):"(0x00007f204201f093)call   0x00007f204201fea0"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 10]Ins call times 978
+================================================================================
+_dl_lookup_symbol_x(555):"(0x00007f20420292be)jnz    0x00007f20420292a8"[/build/glibc-S9d2JN/glibc-2.27/elf/dl-lookup.c]
+_dl_relocate_object(308):"(0x00007f204202aca4)call   0x00007f2042029260"[../sysdeps/x86_64/dl-machine.h]
+dl_main(2190):"(0x00007f2042022322)call   0x00007f204202a900"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_dl_sysdep_start(253):"(0x00007f2042038f4d)call   r13"[../elf/dl-sysdep.c]
+_dl_start(414):"(0x00007f2042020123)call   0x00007f2042038a60"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_start(746):"(0x00007f204201f093)call   0x00007f204201fea0"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+UNCONDITIONAL BRANCHES : 30666
+[No. 1]Ins call times 20000
+================================================================================
+sub_fun(4):"(0x00007f203e048605)jmp    0x00007f203e04861a"[/path/to/project0/input/app/src/app.c]
+main(17):"(0x00007f203e04866e)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 2]Ins call times 10000
+================================================================================
+sub_fun(4):"(0x00007f203e048605)jmp    0x00007f203e04861a"[/path/to/project0/input/app/src/app.c]
+fun(11):"(0x00007f203e048639)call   0x00007f203e0485fa"[/path/to/project0/input/app/src/app.c]
+main(15):"(0x00007f203e04865b)call   0x00007f203e048623"[/path/to/project0/input/app/src/app.c]
+__libc_start_main(310):"(0x00007f203f124bf5)call   rax"[../csu/libc-start.c]
+_start(0):"(0x00007f203e048514)call   <rel> qword ptr [0x00007f203e248fe0]"[]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 3]Ins call times 73
+================================================================================
+_dl_lookup_symbol_x(804):"(0x00007f2042029348)jmp    0x00007f2042029374"[/build/glibc-S9d2JN/glibc-2.27/elf/dl-lookup.c]
+_dl_relocate_object(308):"(0x00007f204202aca4)call   0x00007f2042029260"[../sysdeps/x86_64/dl-machine.h]
+dl_main(2190):"(0x00007f2042022322)call   0x00007f204202a900"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_dl_sysdep_start(253):"(0x00007f2042038f4d)call   r13"[../elf/dl-sysdep.c]
+_dl_start(414):"(0x00007f2042020123)call   0x00007f2042038a60"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_start(746):"(0x00007f204201f093)call   0x00007f204201fea0"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 4]Ins call times 73
+================================================================================
+do_lookup_x(356):"(0x00007f2042028457)jmp    0x00007f204202851d"[/build/glibc-S9d2JN/glibc-2.27/elf/dl-lookup.c]
+_dl_lookup_symbol_x(813):"(0x00007f204202939a)call   0x00007f20420283f0"[/build/glibc-S9d2JN/glibc-2.27/elf/dl-lookup.c]
+_dl_relocate_object(308):"(0x00007f204202aca4)call   0x00007f2042029260"[../sysdeps/x86_64/dl-machine.h]
+dl_main(2190):"(0x00007f2042022322)call   0x00007f204202a900"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_dl_sysdep_start(253):"(0x00007f2042038f4d)call   r13"[../elf/dl-sysdep.c]
+_dl_start(414):"(0x00007f2042020123)call   0x00007f2042038a60"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_start(746):"(0x00007f204201f093)call   0x00007f204201fea0"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 5]Ins call times 70
+================================================================================
+do_lookup_x(90):"(0x00007f20420288a3)jmp    0x00007f20420288b6"[/build/glibc-S9d2JN/glibc-2.27/elf/dl-lookup.c]
+_dl_lookup_symbol_x(813):"(0x00007f204202939a)call   0x00007f20420283f0"[/build/glibc-S9d2JN/glibc-2.27/elf/dl-lookup.c]
+_dl_relocate_object(308):"(0x00007f204202aca4)call   0x00007f2042029260"[../sysdeps/x86_64/dl-machine.h]
+dl_main(2190):"(0x00007f2042022322)call   0x00007f204202a900"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_dl_sysdep_start(253):"(0x00007f2042038f4d)call   r13"[../elf/dl-sysdep.c]
+_dl_start(414):"(0x00007f2042020123)call   0x00007f2042038a60"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_start(746):"(0x00007f204201f093)call   0x00007f204201fea0"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 6]Ins call times 69
+================================================================================
+do_lookup_x(121):"(0x00007f2042029123)jmp    0x00007f20420289ad"[/build/glibc-S9d2JN/glibc-2.27/elf/dl-lookup.c]
+_dl_lookup_symbol_x(813):"(0x00007f204202939a)call   0x00007f20420283f0"[/build/glibc-S9d2JN/glibc-2.27/elf/dl-lookup.c]
+_dl_relocate_object(308):"(0x00007f204202aca4)call   0x00007f2042029260"[../sysdeps/x86_64/dl-machine.h]
+dl_main(2190):"(0x00007f2042022322)call   0x00007f204202a900"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_dl_sysdep_start(253):"(0x00007f2042038f4d)call   r13"[../elf/dl-sysdep.c]
+_dl_start(414):"(0x00007f2042020123)call   0x00007f2042038a60"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_start(746):"(0x00007f204201f093)call   0x00007f204201fea0"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 7]Ins call times 31
+================================================================================
+__GI___tunables_init(74):"(0x00007f2042036e58)jmp    0x00007f2042036e68"[/build/glibc-S9d2JN/glibc-2.27/elf/dl-tunables.c]
+_dl_sysdep_start(224):"(0x00007f2042038de5)call   0x00007f2042036dd0"[../elf/dl-sysdep.c]
+_dl_start(414):"(0x00007f2042020123)call   0x00007f2042038a60"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+_start(746):"(0x00007f204201f093)call   0x00007f204201fea0"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 8]Ins call times 22
+================================================================================
+intel_check_word.isra.0(29):"(0x00007f203f1bea23)jmp    0x00007f203f1bea08"[../bits/stdlib-bsearch.h]
+handle_intel.constprop.1(293):"(0x00007f203f1becfa)call   0x00007f203f1be960"[../sysdeps/x86/cacheinfo.c]
+init_cacheinfo(506):"(0x00007f203f1245e5)call   0x00007f203f1bec60"[../sysdeps/x86/cacheinfo.c]
+_dl_init(72):"(0x00007f204202e8d0)call   qword ptr [r14]"[/build/glibc-S9d2JN/glibc-2.27/elf/dl-init.c]
+_dl_start_user(746):"(0x00007f204201f0c5)call   0x00007f204202e7d0"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 9]Ins call times 22
+================================================================================
+intel_check_word.isra.0(29):"(0x00007f203f1bea23)jmp    0x00007f203f1bea08"[../bits/stdlib-bsearch.h]
+handle_intel.constprop.1(293):"(0x00007f203f1becfa)call   0x00007f203f1be960"[../sysdeps/x86/cacheinfo.c]
+init_cacheinfo(504):"(0x00007f203f1245d8)call   0x00007f203f1bec60"[../sysdeps/x86/cacheinfo.c]
+_dl_init(72):"(0x00007f204202e8d0)call   qword ptr [r14]"[/build/glibc-S9d2JN/glibc-2.27/elf/dl-init.c]
+_dl_start_user(746):"(0x00007f204201f0c5)call   0x00007f204202e7d0"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
+
+[No. 10]Ins call times 22
+================================================================================
+intel_check_word.isra.0(29):"(0x00007f203f1bea23)jmp    0x00007f203f1bea08"[../bits/stdlib-bsearch.h]
+handle_intel.constprop.1(293):"(0x00007f203f1becfa)call   0x00007f203f1be960"[../sysdeps/x86/cacheinfo.c]
+init_cacheinfo(511):"(0x00007f203f1245f3)call   0x00007f203f1bec60"[../sysdeps/x86/cacheinfo.c]
+_dl_init(72):"(0x00007f204202e8d0)call   qword ptr [r14]"[/build/glibc-S9d2JN/glibc-2.27/elf/dl-init.c]
+_dl_start_user(746):"(0x00007f204201f0c5)call   0x00007f204202e7d0"[/build/glibc-S9d2JN/glibc-2.27/elf/rtld.c]
+THREAD[0]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+PROCESS[20718]_ROOT_CTXT(0):"(0x0000000000000000) "[ ]
+================================================================================
