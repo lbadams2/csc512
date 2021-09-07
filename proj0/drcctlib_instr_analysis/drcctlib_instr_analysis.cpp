@@ -70,7 +70,7 @@ InsTransEventCallback(void *drcontext, instr_instrument_msg_t *instrument_msg)
     instr_t *instr = instrument_msg->instr;
     int32_t slot = instrument_msg->slot;
 
-    int32_t instr_type = 0;
+    int32_t instr_type = -1;
     if(instr_reads_memory(instr))
         instr_type = MEM_LOAD_PROJ0;
     else if(instr_writes_memory(instr))
