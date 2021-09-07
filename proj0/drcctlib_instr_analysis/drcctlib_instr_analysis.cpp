@@ -39,23 +39,28 @@ using namespace std;
 
 // Execution
 void
-InsCount(int32_t instr_type, int32_t slot)
+InsCount(int32_t instr_bits, int32_t slot)
 {
     void *drcontext = dr_get_current_drcontext();
     context_handle_t cur_ctxt_hndl = drcctlib_get_context_handle(drcontext, slot);
-    if(instr_type == MEM_LOAD_PROJ0) {
+
+    int32_t mem_load_val = (instr_bits & 8) >> 3;
+    int32_t mem_store_val = (instr_bits & 4) >> 2;
+    int32_t cond_branch_val = (instr_bits & 2) >> 1;
+    int32_t uncond_branch_val = instr_bits & 1;
+    if(mem_load_val == 1) {
         mem_load++;
         gloabl_hndl_call_num_load[cur_ctxt_hndl]++;
     }
-    else if(instr_type == MEM_STORE_PROJ0) {
+    if(mem_store_val == 1) {
         mem_store++;
         gloabl_hndl_call_num_store[cur_ctxt_hndl]++;
     }
-    else if(instr_type == COND_BRANCH_PROJ0) {
+    if(cond_branch_val == 1) {
         cond_branch++;
         gloabl_hndl_call_num_cond[cur_ctxt_hndl]++;
     }
-    else if(instr_type == UNCOND_BRANCH_PROJ0) {
+    if(uncond_branch_val == 1) {
         uncond_branch++;
         gloabl_hndl_call_num_uncond[cur_ctxt_hndl]++;
     }    
@@ -70,17 +75,26 @@ InsTransEventCallback(void *drcontext, instr_instrument_msg_t *instrument_msg)
     instr_t *instr = instrument_msg->instr;
     int32_t slot = instrument_msg->slot;
 
-    int32_t instr_type = -1;
-    if(instr_reads_memory(instr))
-        instr_type = MEM_LOAD_PROJ0;
-    else if(instr_writes_memory(instr))
-        instr_type = MEM_STORE_PROJ0;
-    else if(instr_is_cbr(instr))
-        instr_type = COND_BRANCH_PROJ0;
-    else if(instr_is_ubr(instr))
-        instr_type = UNCOND_BRANCH_PROJ0;
+    int32_t instr_bits = 0;
+    int32_t mask = 0;
+    if(instr_reads_memory(instr)) {
+        mask = 1 << 3;
+        instr_bits = instr_bits | mask;
+    }
+    if(instr_writes_memory(instr)) {
+        mask = 1 << 2;
+        instr_bits = instr_bits | mask;
+    }
+    if(instr_is_cbr(instr)) {
+        mask = 1 << 1;
+        instr_bits = instr_bits | mask;
+    }
+    if(instr_is_ubr(instr)) {
+        mask = 1 << 0;
+        instr_bits = instr_bits | mask;
+    }
 
-    dr_insert_clean_call(drcontext, bb, instr, (void *)InsCount, false, 2, OPND_CREATE_INT32(instr_type), OPND_CREATE_CCT_INT(slot));
+    dr_insert_clean_call(drcontext, bb, instr, (void *)InsCount, false, 2, OPND_CREATE_INT32(instr_bits), OPND_CREATE_CCT_INT(slot));
 }
 
 static inline void
