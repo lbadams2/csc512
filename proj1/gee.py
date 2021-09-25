@@ -27,6 +27,19 @@ class Number( Expression ):
 		return str(self.value)
 
 
+class VarRef( Expression ):
+	def __str__(self):
+		return str('@')
+
+# needed for variable names
+class String( Expression ):
+	def __init__(self, value):
+		self.value = value
+
+	def __str__(self):
+		return '"' + str(self.value) + '"'
+
+
 def error( msg ):
 	#print msg
 	sys.exit(msg)
@@ -58,6 +71,51 @@ def factor( ):
 	error("Invalid operand")
 	return
 
+def relationalExpr():
+	tok = tokens.peek( )
+	if debug: print ("relationalExpr: ", tok)
+	left = addExpr()
+	tok = tokens.peek( )
+	if re.match(Lexer.relational, tok): # if for square brackets, while for curly braces
+		tokens.next()
+		right = relationalExpr()
+		left = BinaryExpr(tok, left, right)
+		return left
+	return left
+
+
+def andExpr():
+	tok = tokens.peek( )
+	if debug: print ("andExpr: ", tok)
+	left = relationalExpr()
+	tok = tokens.peek( )
+	while tok == "and":
+		tokens.next()
+		right = relationalExpr()
+		left = BinaryExpr(tok, left, right)
+		tok = tokens.peek()
+	return left
+
+# choose among productions for LHS based on First+ sets of LHS
+# First+(LHS->RHS) is either First(RHS) if EOL is not in RHS, or First(RHS) U Follow(LHS) if it is
+# First(NT) is the set of terminal symobls that can appear as the first word in some string derived from LHS
+# First(T) is just T
+# if the first symbol on RHS is a non termninal, call its function to get the terminals
+# First+(expression) = andExpr, there is only 1 production for expression
+def parseExpr():
+	tok = tokens.peek( )
+	if debug: print ("expression: ", tok)
+	left = andExpr()
+	tok = tokens.peek( )
+	while tok == "or":
+		tokens.next()
+		right = andExpr()
+		left = BinaryExpr(tok, left, right)
+		tok = tokens.peek( )
+	return left
+
+def parseStmt(tokens):
+	pass
 
 def term( ):
 	""" term    = factor { ('*' | '/') factor } """
@@ -91,9 +149,9 @@ def parseStmtList(  ):
 	""" gee = { Statement } """
 	tok = tokens.peek( )
 	while tok is not None:
-                # need to store each statement in a list
+		# need to store each statement in a list
 		ast = parseStmt(tokens)
-                print(str(ast))
+		print(str(ast))
 	return ast
 
 def parse( text ) :
@@ -138,7 +196,7 @@ class Lexer :
 	relational = "<=?|>=?|==?|!="
 	arithmetic = "\+|\-|\*|/"
 	#char = r"'."
-	string = r"'[^']*'" + "|" + r'"[^"]*"'
+	string = r"'[^']*'" + "|" + r'"[^"]*"' # something enclosed in single or double quotes
 	number = r"\-?\d+(?:\.\d+)?"
 	literal = string + "|" + number
 	#idStart = r"a-zA-Z"
