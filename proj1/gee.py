@@ -28,8 +28,11 @@ class Number( Expression ):
 
 
 class VarRef( Expression ):
+	def __init__(self, value):
+		self.value = value
+
 	def __str__(self):
-		return str('@')
+		return str(self.value)
 
 # needed for variable names
 class String( Expression ):
@@ -40,9 +43,62 @@ class String( Expression ):
 		return '"' + str(self.value) + '"'
 
 
-def error( msg ):
+class Statement( object ):
+	def __init__(self, stmt):
+		self.stmt = stmt
+
+	def __str__(self):
+		return str(self.stmt) + "\n"
+
+class StatementList( Statement ):
+	def __init__(self, statements):
+		self.statements = statements
+
+	def __str__(self):
+		stmtStrs = ''
+		for stmt in self.statements:
+			stmtStrs += str(stmt)
+		return stmtStrs
+
+class AssignStmt(Statement):
+	def __init__(self, left, right):
+		self.left = left
+		self.right = right
+
+	def __str__(self):
+		return "=" + " " + str(self.left) + " " + str(self.right)
+
+class WhileStmt(Statement):
+	def __init__(self, expr, block):
+		self.expr = expr
+		self.block = block
+
+	def __str__(self):
+		return "while " + str(self.expr) + "\n" + str(self.block) + "endwhile"
+
+class IfStmt(Statement):
+	def __init__(self, expr, block, elseBlock):
+		self.expr = expr
+		self.block = block
+		self.elseBlock = elseBlock
+
+	def __str__(self):
+		ifStr = "if " + str(self.expr) + "\n" + str(self.block)
+		if self.elseBlock:
+			elseStr = "else\n" + str(self.elseBlock)
+			return ifStr + elseStr + "endif"
+		return  ifStr + "endif"
+
+class BlockStmt(Statement):
+	def __init__(self, stmtList):
+		self.stmtList = stmtList
+
+	def __str__(self):
+		return str(self.stmtList)
+
+def error( msg, location ):
 	#print msg
-	sys.exit(msg)
+	sys.exit(msg + ": " + location)
 
 # The "parse" function. This builds a list of tokens from the input string,
 # and then hands it to a recursive descent parser for the PAL grammar.
@@ -62,13 +118,21 @@ def factor( ):
 		expr = Number(tok)
 		tokens.next( )
 		return expr
+	if re.match(Lexer.string, tok):
+		expr = String(tok)
+		tokens.next( )
+		return expr
+	if re.match(Lexer.identifier, tok):
+		expr = VarRef(tok)
+		tokens.next( )
+		return expr
 	if tok == "(":
 		tokens.next( )  # or match( tok )
 		expr = addExpr( )
 		tokens.peek( )
 		tok = match(")")
 		return expr
-	error("Invalid operand")
+	error("Invalid operand", "end of factor")
 	return
 
 def relationalExpr():
@@ -114,8 +178,83 @@ def parseExpr():
 		tok = tokens.peek( )
 	return left
 
-def parseStmt(tokens):
-	pass
+def assign():
+	tok = tokens.peek( )
+	if debug: print ("assign: ", tok)
+	if re.match(Lexer.identifier, tok):
+		left = tok
+		tokens.next()
+		tok = tokens.peek( )
+		if tok == "=":
+			tokens.next()
+		else:
+			error("Invalid operand", "assign missing =")
+		right = parseExpr()
+		tok = tokens.peek( )
+		if tok == ";":
+			tokens.next()
+		else:
+			error("Invalid operand", "assign missing ;")
+		return AssignStmt(left, right)
+
+def whileStmt():
+	tok = tokens.peek( )
+	if debug: print ("while: ", tok)
+	if tok == "while":
+		tok = tokens.next()
+		expr = parseExpr()
+		blk = block()
+		return WhileStmt(expr, blk)
+
+def ifStmt():
+	tok = tokens.peek( )
+	if debug: print ("if: ", tok)
+	if tok == "if":
+		tok = tokens.next()
+		expr = parseExpr()
+		blk = block()
+		tok = tokens.peek( )
+		elseBlk = None
+		if tok == "else":
+			tok = tokens.next()
+			elseBlk = block()
+		return IfStmt(expr, blk, elseBlk)
+
+def block():
+	tok = tokens.peek( )
+	if debug: print ("block: ", tok)
+	if tok == ":":
+		tok = tokens.next()
+		if tok == ";":
+			tok = tokens.next()
+			if tok == "@":
+				tok = tokens.next()
+				stmtList = parseStmtList()
+				tok = tokens.peek( )
+				if tok == "~":
+					tokens.next()
+					return BlockStmt(stmtList)
+				else:
+					error("Invalid operand", "block missing ~")
+			else:
+				error("Invalid operand", "block missing @")
+		else:
+			error("Invalid operand", "block missing ;")
+
+
+def parseStmt():
+	tok = tokens.peek( )
+	if debug: print ("statement: ", tok)
+	stmt = None
+	if tok == "if":
+		stmt = ifStmt()
+	elif tok == "while":
+		stmt = whileStmt()
+	elif re.match(Lexer.identifier, tok):
+		stmt = assign()
+	else:
+		error("Invalid operand", "invalid statement")
+	return Statement(stmt)
 
 def term( ):
 	""" term    = factor { ('*' | '/') factor } """
@@ -145,23 +284,27 @@ def addExpr( ):
 		tok = tokens.peek( )
 	return left
 
+# each line in a program is a statement
 def parseStmtList(  ):
 	""" gee = { Statement } """
 	tok = tokens.peek( )
-	while tok is not None:
-		# need to store each statement in a list
-		ast = parseStmt(tokens)
-		print(str(ast))
-	return ast
+	stmts = []
+	while tok is not None and tok != '~': # end of block
+		# need to store each statement in a list		
+		ast = parseStmt()
+		stmts.append(ast)
+		tok = tokens.peek( )
+	stmtList = StatementList(stmts)
+	return stmtList
 
 def parse( text ) :
 	global tokens
 	tokens = Lexer( text )
-	expr = addExpr( )
-	print (str(expr))
+	#expr = addExpr( )
+	#print (str(expr))
 	#     Or:
-	# stmtlist = parseStmtList( tokens )
-	# print str(stmtlist)
+	stmtlist = parseStmtList( )
+	print(str(stmtlist))
 	return
 
 
@@ -203,7 +346,8 @@ class Lexer :
 	#idChar = idStart + r"0-9"
 	#identifier = "[" + idStart + "][" + idChar + "]*"
 	identifier = "[a-zA-Z]\w*"
-	lexRules = literal + "|" + special + "|" + relational + "|" + arithmetic + "|" + identifier
+	statements = "if|while|else"
+	lexRules = literal + "|" + special + "|" + relational + "|" + arithmetic + "|" + identifier + "|" + statements
 	
 	def __init__( self, text ) :
 		self.tokens = re.findall( Lexer.lexRules, text )
