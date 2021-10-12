@@ -339,7 +339,7 @@ class Lexer :
 	relational = "<=?|>=?|==?|!="
 	arithmetic = "\+|\-|\*|/"
 	#char = r"'."
-	string = r"'[^']*'" + "|" + r'"[^"]*"' # something enclosed in single or double quotes
+	string = r"'[^']*'" + "|" + r'"[^"]*"' # something enclosed in single or double quotes, this might catch if|while|else
 	number = r"\-?\d+(?:\.\d+)?"
 	literal = string + "|" + number
 	#idStart = r"a-zA-Z"

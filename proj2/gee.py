@@ -1,7 +1,7 @@
 import re, sys, string
 
 debug = True
-state = { }
+state = { } # hold all variables and their values
 tokens = [ ]
 
 
@@ -429,15 +429,8 @@ def mklines(filename):
 def main():
 	"""main program for testing"""
 	global debug
-	ct = 0
-	for opt in sys.argv[1:]:
-		if opt[0] != "-": break
-		ct = ct + 1
-		if opt == "-d": debug = True
-	if len(sys.argv) < 2+ct:
-		print ("Usage:  %s filename" % sys.argv[0])
-		return
-	parse("".join(mklines(sys.argv[1+ct])))
+	filename = '/Users/liam_adams/my_repos/csc512/proj2/test/fact1.txt'
+	parse("".join(mklines(filename)))
 	return
 
 

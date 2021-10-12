@@ -2,3 +2,5 @@ hw
 .vscode
 *.zip
 .DS_Store
+output
+test
