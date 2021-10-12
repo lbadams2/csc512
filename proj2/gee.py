@@ -7,8 +7,14 @@ tokens = [ ]
 
 #  Expression class and its subclasses
 class Expression( object ):
+	def __init__(self, value):
+		self.value = value
+
 	def __str__(self):
 		return "" 
+
+	def value(self, state):
+		return self.value
 	
 class BinaryExpr( Expression ):
 	def __init__(self, op, left, right):
@@ -19,26 +25,44 @@ class BinaryExpr( Expression ):
 	def __str__(self):
 		return str(self.op) + " " + str(self.left) + " " + str(self.right)
 
-class Number( Expression ):
-	def __init__(self, value):
-		self.value = value
+	def value(self, state):
+		left = self.left.value(state)
+		right = self.right.value(state)
+		if self.op == '+':
+			return left + right
+		if self.op == '-':
+			return left - right
+		if self.op == '*':
+			return left * right
+		if self.op == '/':
+			return left / right
+		if self.op == 'or':
+			return left or right
+		if self.op == 'and':
+			return left and right
+		if self.op == '<':
+			return left < right
+		if self.op == '>':
+			return left > right
+		if self.op == '<=':
+			return left <= right
+		if self.op == '>=':
+			return left >= right
+		if self.op == '!=':
+			return left != right
 		
+
+class Number( Expression ):
 	def __str__(self):
 		return str(self.value)
 
 
 class VarRef( Expression ):
-	def __init__(self, value):
-		self.value = value
-
 	def __str__(self):
 		return str(self.value)
 
 # needed for variable names
 class String( Expression ):
-	def __init__(self, value):
-		self.value = value
-
 	def __str__(self):
 		return '"' + str(self.value) + '"'
 
@@ -50,6 +74,9 @@ class Statement( object ):
 	def __str__(self):
 		return str(self.stmt) + "\n"
 
+	def meaning(self, state):
+		return state
+
 class StatementList( Statement ):
 	def __init__(self, statements):
 		self.statements = statements
@@ -59,6 +86,11 @@ class StatementList( Statement ):
 		for stmt in self.statements:
 			stmtStrs += str(stmt)
 		return stmtStrs
+	
+	def meaning(self, state):
+		for stmt in self.statements:
+			state = stmt.meaning(state)
+		return state
 
 class AssignStmt(Statement):
 	def __init__(self, left, right):
@@ -67,6 +99,9 @@ class AssignStmt(Statement):
 
 	def __str__(self):
 		return "=" + " " + str(self.left) + " " + str(self.right)
+	
+	def meaning(self, state):
+		state[self.left] = self.right.value(state) # right is an expression that has the value function
 
 class WhileStmt(Statement):
 	def __init__(self, expr, block):
@@ -75,6 +110,12 @@ class WhileStmt(Statement):
 
 	def __str__(self):
 		return "while " + str(self.expr) + "\n" + str(self.block) + "endwhile"
+
+	def meaning(self, state):
+		if self.expr.value(state):
+			return self.block.meaning(state)
+		else:
+			return state
 
 class IfStmt(Statement):
 	def __init__(self, expr, block, elseBlock):
@@ -89,12 +130,23 @@ class IfStmt(Statement):
 			return ifStr + elseStr + "endif"
 		return  ifStr + "endif"
 
+	def meaning(self, state):
+		if self.expr.value(state):
+			return self.block.meaning(state)
+		elif self.elseBlock:
+			return self.elseBlock.meaning(state)
+		else:
+			return state
+
 class BlockStmt(Statement):
 	def __init__(self, stmtList):
 		self.stmtList = stmtList
 
 	def __str__(self):
 		return str(self.stmtList)
+	
+	def meaning(self, state):
+		return self.stmtList.meaning(state)
 
 def error( msg, location ):
 	#print msg
