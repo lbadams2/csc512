@@ -15,6 +15,9 @@ class Expression( object ):
 
 	def value(self, state):
 		return self.val
+
+	def tipe(self, tm):
+		pass
 	
 class BinaryExpr( Expression ):
 	def __init__(self, op, left, right):
@@ -50,7 +53,19 @@ class BinaryExpr( Expression ):
 			return left >= right
 		if self.op == '!=':
 			return left != right
-		
+	
+	def tipe(self, tm, state):
+		left = self.left.value(state)
+		right = self.right.value(state)
+		if type(left) != type(right):
+			raise ValueError('Type Error: ' + type(left) + ' ' + self.op + ' ' + type(right))
+		if re.match(Lexer.relational, self.op):
+			return 'boolean'
+		elif re.match(Lexer.arithmetic, self.op):
+			return 'number'
+		else:
+			raise ValueError('Invalid Operator: ' + self.op)
+
 
 class Number( Expression ):
 	def __str__(self):
@@ -59,6 +74,9 @@ class Number( Expression ):
 	def value(self, state):
 		return int(self.val)
 
+	def tipe(self, tm):
+		return 'number'
+
 
 class VarRef( Expression ):
 	def __str__(self):
@@ -66,6 +84,9 @@ class VarRef( Expression ):
 
 	def value(self, state):
 		return state[self.val]
+
+	def tipe(self, tm):
+		return tm[self.val]
 
 # needed for variable names
 class String( Expression ):
@@ -95,6 +116,11 @@ class StatementList( Statement ):
 			state = stmt.meaning(state)
 		return state
 
+	def tipe(self, tm):
+		for stmt in self.statements:
+			tm = stmt.tipe(tm)
+		return tm
+
 class AssignStmt(Statement):
 	def __init__(self, left, right):
 		self.left = left
@@ -106,6 +132,10 @@ class AssignStmt(Statement):
 	def meaning(self, state):
 		state[self.left] = self.right.value(state) # right is an expression that has the value function
 		return state
+
+	def tipe(self, tm):
+		tm[self.left] = self.right.tipe(tm)
+		return tm
 
 class WhileStmt(Statement):
 	def __init__(self, expr, block):
@@ -352,6 +382,18 @@ def parseStmtList(  ):
 	stmtList = StatementList(stmts)	
 	return stmtList
 
+def task1(stmtlist):
+	print('Printing project 2, task 1 output')
+	state = {}
+	stateRet = stmtlist.meaning(state)
+	print(stateRet)
+
+def task2(stmtlist):
+	print('Printing project 2, task 2 output')
+	tm = {}
+	tmRet = stmtlist.tipe(tm)
+	print(tmRet)
+
 def parse( text ) :
 	global tokens
 	tokens = Lexer( text )
@@ -359,11 +401,12 @@ def parse( text ) :
 	#print (str(expr))
 	#     Or:
 	stmtlist = parseStmtList( )
-	print(str(stmtlist))
-
-	state = {}
-	stateRet = stmtlist.meaning(state)
-	print(stateRet)
+	
+	print('Printing project 1 output')
+	print(str(stmtlist)) # project 1 output
+	
+	#task1(stmtlist)
+	task2(stmtlist)
 	return
 
 
@@ -488,7 +531,7 @@ def mklines(filename):
 def main():
 	"""main program for testing"""
 	global debug
-	filename = '/Users/liam_adams/my_repos/csc512/proj2/test/if2.txt'
+	filename = '/Users/liam_adams/my_repos/csc512/proj2/test2/t3.txt'
 	parse("".join(mklines(filename)))
 	return
 
