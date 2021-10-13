@@ -1,20 +1,20 @@
 import re, sys, string
 
 debug = True
-state = { } # hold all variables and their values
+#state = { } # hold all variables and their values
 tokens = [ ]
 
 
 #  Expression class and its subclasses
 class Expression( object ):
-	def __init__(self, value):
-		self.value = value
+	def __init__(self, val):
+		self.val = val
 
 	def __str__(self):
 		return "" 
 
 	def value(self, state):
-		return self.value
+		return self.val
 	
 class BinaryExpr( Expression ):
 	def __init__(self, op, left, right):
@@ -54,23 +54,26 @@ class BinaryExpr( Expression ):
 
 class Number( Expression ):
 	def __str__(self):
-		return str(self.value)
+		return str(self.val)
+
+	def value(self, state):
+		return int(self.val)
 
 
 class VarRef( Expression ):
 	def __str__(self):
-		return str(self.value)
+		return str(self.val)
+
+	def value(self, state):
+		return state[self.val]
 
 # needed for variable names
 class String( Expression ):
 	def __str__(self):
-		return '"' + str(self.value) + '"'
+		return '"' + str(self.val) + '"'
 
 
 class Statement( object ):
-	def __init__(self, stmt):
-		self.stmt = stmt
-
 	def __str__(self):
 		return str(self.stmt) + "\n"
 
@@ -98,10 +101,11 @@ class AssignStmt(Statement):
 		self.right = right
 
 	def __str__(self):
-		return "=" + " " + str(self.left) + " " + str(self.right)
+		return "=" + " " + str(self.left) + " " + str(self.right) + "\n"
 	
 	def meaning(self, state):
 		state[self.left] = self.right.value(state) # right is an expression that has the value function
+		return state
 
 class WhileStmt(Statement):
 	def __init__(self, expr, block):
@@ -109,13 +113,12 @@ class WhileStmt(Statement):
 		self.block = block
 
 	def __str__(self):
-		return "while " + str(self.expr) + "\n" + str(self.block) + "endwhile"
+		return "while " + str(self.expr) + "\n" + str(self.block) + "endwhile\n"
 
 	def meaning(self, state):
-		if self.expr.value(state):
-			return self.block.meaning(state)
-		else:
-			return state
+		while self.expr.value(state):
+			state = self.block.meaning(state)
+		return state
 
 class IfStmt(Statement):
 	def __init__(self, expr, block, elseBlock):
@@ -127,8 +130,8 @@ class IfStmt(Statement):
 		ifStr = "if " + str(self.expr) + "\n" + str(self.block)
 		if self.elseBlock:
 			elseStr = "else\n" + str(self.elseBlock)
-			return ifStr + elseStr + "endif"
-		return  ifStr + "endif"
+			return ifStr + elseStr + "endif\n"
+		return  ifStr + "endif\n"
 
 	def meaning(self, state):
 		if self.expr.value(state):
@@ -306,7 +309,7 @@ def parseStmt():
 		stmt = assign()
 	else:
 		error("Invalid operand", "invalid statement")
-	return Statement(stmt)
+	return stmt
 
 def term( ):
 	""" term    = factor { ('*' | '/') factor } """
@@ -346,7 +349,7 @@ def parseStmtList(  ):
 		ast = parseStmt()
 		stmts.append(ast)
 		tok = tokens.peek( )
-	stmtList = StatementList(stmts)
+	stmtList = StatementList(stmts)	
 	return stmtList
 
 def parse( text ) :
@@ -357,6 +360,10 @@ def parse( text ) :
 	#     Or:
 	stmtlist = parseStmtList( )
 	print(str(stmtlist))
+
+	state = {}
+	stateRet = stmtlist.meaning(state)
+	print(stateRet)
 	return
 
 
@@ -481,7 +488,7 @@ def mklines(filename):
 def main():
 	"""main program for testing"""
 	global debug
-	filename = '/Users/liam_adams/my_repos/csc512/proj2/test/fact1.txt'
+	filename = '/Users/liam_adams/my_repos/csc512/proj2/test/if2.txt'
 	parse("".join(mklines(filename)))
 	return
 
