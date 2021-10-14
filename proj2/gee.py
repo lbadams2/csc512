@@ -54,10 +54,10 @@ class BinaryExpr( Expression ):
 		if self.op == '!=':
 			return left != right
 	
-	def tipe(self, tm, state):
-		left = self.left.value(state)
-		right = self.right.value(state)
-		if type(left) != type(right):
+	def tipe(self, tm):
+		left = self.left.tipe(tm)
+		right = self.right.tipe(tm)
+		if left != right:
 			raise ValueError('Type Error: ' + type(left) + ' ' + self.op + ' ' + type(right))
 		if re.match(Lexer.relational, self.op):
 			return 'boolean'
@@ -86,7 +86,11 @@ class VarRef( Expression ):
 		return state[self.val]
 
 	def tipe(self, tm):
-		return tm[self.val]
+		try:
+			tm[self.val]
+			return tm[self.val]
+		except KeyError:
+			raise ValueError('Type Error: ' + self.val + ' is referenced before being defined!', tm)		
 
 # needed for variable names
 class String( Expression ):
@@ -134,8 +138,12 @@ class AssignStmt(Statement):
 		return state
 
 	def tipe(self, tm):
-		tm[self.left] = self.right.tipe(tm)
-		return tm
+		rightType = self.right.tipe(tm)
+		if (self.left in tm) and (tm[self.left] != rightType):
+			raise ValueError('Type Error: ' + tm[self.left] + ' = ' + rightType + '!', tm)
+		else:
+			tm[self.left] = rightType
+			return tm
 
 class WhileStmt(Statement):
 	def __init__(self, expr, block):
@@ -149,6 +157,11 @@ class WhileStmt(Statement):
 		while self.expr.value(state):
 			state = self.block.meaning(state)
 		return state
+
+	def tipe(self, tm):
+		self.expr.tipe(tm)
+		tmRet = self.block.tipe(tm)
+		return tmRet
 
 class IfStmt(Statement):
 	def __init__(self, expr, block, elseBlock):
@@ -171,6 +184,13 @@ class IfStmt(Statement):
 		else:
 			return state
 
+	def tipe(self, tm):
+		self.expr.tipe(tm)
+		tmRet = self.block.tipe(tm)
+		if self.elseBlock:
+			tmRet = self.elseBlock.tipe(tmRet)
+		return tmRet
+
 class BlockStmt(Statement):
 	def __init__(self, stmtList):
 		self.stmtList = stmtList
@@ -181,6 +201,9 @@ class BlockStmt(Statement):
 	def meaning(self, state):
 		return self.stmtList.meaning(state)
 
+	def tipe(self, tm):
+		return self.stmtList.tipe(tm)
+
 def error( msg, location ):
 	#print msg
 	sys.exit(msg + ": " + location)
@@ -190,7 +213,7 @@ def error( msg, location ):
 
 def match(matchtok):
 	tok = tokens.peek( )
-	if (tok != matchtok): error("Expecting "+ matchtok)
+	if (tok != matchtok): error("Expecting "+ matchtok + ", got " + tok, "match()")
 	tokens.next( )
 	return tok
 	
@@ -213,8 +236,8 @@ def factor( ):
 		return expr
 	if tok == "(":
 		tokens.next( )  # or match( tok )
-		expr = addExpr( )
-		tokens.peek( )
+		expr = parseExpr()
+		tokens.peek()
 		tok = match(")")
 		return expr
 	error("Invalid operand", "end of factor")
@@ -382,17 +405,40 @@ def parseStmtList(  ):
 	stmtList = StatementList(stmts)	
 	return stmtList
 
+def print_task1(state):
+	out = '{'
+	for key, value in state.items():
+		item = '<{}, {}>, '.format(key, value)
+		out += item
+	out = out[:-2]
+	out += '}'
+	print(out)
+
+def print_task2(tm):
+	for key, value in tm.items():
+		print(key + ' ' + str(value))
+
 def task1(stmtlist):
 	print('Printing project 2, task 1 output')
 	state = {}
-	stateRet = stmtlist.meaning(state)
-	print(stateRet)
+	try:
+		stateRet = stmtlist.meaning(state)
+		print_task1(stateRet)
+	except KeyError:
+		print('Reference before assignment')
+		return
 
 def task2(stmtlist):
-	print('Printing project 2, task 2 output')
+	print('\n\nPrinting project 2, task 2 output')
 	tm = {}
-	tmRet = stmtlist.tipe(tm)
-	print(tmRet)
+	try:
+		tmRet = stmtlist.tipe(tm)
+		print_task2(tmRet)
+	except ValueError as err:
+		tmRet = err.args[1]
+		msg = err.args[0]
+		print_task2(tmRet)
+		print(msg)	
 
 def parse( text ) :
 	global tokens
@@ -402,10 +448,10 @@ def parse( text ) :
 	#     Or:
 	stmtlist = parseStmtList( )
 	
-	print('Printing project 1 output')
+	print('\nPrinting project 1 output')
 	print(str(stmtlist)) # project 1 output
 	
-	#task1(stmtlist)
+	task1(stmtlist)
 	task2(stmtlist)
 	return
 
@@ -529,10 +575,17 @@ def mklines(filename):
 
 
 def main():
-	"""main program for testing"""
+
 	global debug
-	filename = '/Users/liam_adams/my_repos/csc512/proj2/test2/t3.txt'
-	parse("".join(mklines(filename)))
+	ct = 0
+	for opt in sys.argv[1:]:
+		if opt[0] != "-": break
+		ct = ct + 1
+		if opt == "-d": debug = True
+	if len(sys.argv) < 2+ct:
+		print ("Usage:  %s filename" % sys.argv[0])
+		return
+	parse("".join(mklines(sys.argv[1+ct])))
 	return
 
 
