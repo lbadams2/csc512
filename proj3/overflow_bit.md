@@ -1,0 +1,2 @@
+## Using overflow bit to detect integer overflow
+I was not able to detect any overflow using this method. I assumed that the overflow bit was one of the bits in `bitFlagsValue`. I searched the Dynamo Rio docs for which bit is used for overflow and found a bit mask called `EFLAGS_READ_OF` with `OF` meaning overflow. I used this mask on `bitFlagsValue` but it always produced 0.
